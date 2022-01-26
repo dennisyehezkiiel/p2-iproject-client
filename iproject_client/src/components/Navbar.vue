@@ -43,7 +43,7 @@
               <i
                 class="fab fa-twitter text-lg leading-lg text-white opacity-75"
               />
-              <span class="ml-2">Home</span>
+              <a href="" @click="homeHandler" class="ml-2">Home</a>
             </a>
           </li>
           <li class="nav-item">
@@ -51,7 +51,7 @@
               class="px-3 py-2 flex items-center text-sm uppercase font-light leading-snug text-slate-500 hover:opacity-75"
               href=""
             >
-              <span class="ml-2" @click="logoutHandler">Logout</span>
+              <a href="" class="ml-2" @click="logoutHandler">Logout</a>
             </a>
           </li>
           <li class="nav-item">
@@ -59,7 +59,9 @@
               class="px-3 py-2 flex items-center text-sm uppercase font-light leading-snug text-slate-500 hover:opacity-75"
               href=""
             >
-              <router-link to="creatediary" class="ml-2">New Diary</router-link>
+              <router-link to="/creatediary" class="ml-2"
+                >New Diary</router-link
+              >
             </a>
           </li>
           <div class="group inline-block relative">
@@ -138,6 +140,9 @@ export default {
     logoutHandler() {
       localStorage.clear();
       this.$router.push("/loginpage");
+    },
+    homeHandler() {
+      this.$router.push("/");
     },
   },
   created() {
