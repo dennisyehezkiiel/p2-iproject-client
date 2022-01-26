@@ -29,7 +29,7 @@
                   id="name"
                   :value="myDiary.imageUrl"
                   class="ml-2 outline-none py-1 px-2 text-sm border-2 w-full rounded-md"
-                  v-on:input="diary.title = $event.target.value"
+                  v-on:input="diary.imageUrl = $event.target.value"
                 />
               </div>
               <div>
@@ -40,7 +40,7 @@
                   placeholder="Your story goes here.."
                   :value="myDiary.story"
                   class="w-full p-4 text-gray-600 text-sm bg-indigo-50 outline-none rounded-md"
-                  v-on:input="diary.title = $event.target.value"
+                  v-on:input="diary.story = $event.target.value"
                 ></textarea>
               </div>
               <div>

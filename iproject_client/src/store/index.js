@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import swal from "sweetalert2";
 
 Vue.use(Vuex);
 
@@ -100,7 +101,11 @@ export default new Vuex.Store({
         localStorage.setItem("userId", login.data.userId);
         localStorage.setItem("userName", login.data.userName);
       } catch (err) {
-        console.log(err.response);
+        swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data,
+        });
       }
     },
     async registration(context) {
@@ -120,7 +125,11 @@ export default new Vuex.Store({
         console.log(registerUser);
         context.commit("CHANGE_REGISTRATION_STATUS", true);
       } catch (err) {
-        console.log(err.response.data);
+        swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data,
+        });
       }
     },
     async getDiary(context) {
@@ -134,7 +143,11 @@ export default new Vuex.Store({
         });
         context.commit("CHANGE_DIARY_LIST", diaryList.data);
       } catch (err) {
-        console.log(err.response);
+        swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data,
+        });
       }
     },
     async searchUser(context) {
@@ -165,10 +178,22 @@ export default new Vuex.Store({
           },
           headers: { access_token: localStorage.getItem("access_token") },
         });
+        console.log(diaryData);
         context.commit("CHANGE_NEW_DIARY_STATUS", true);
         context.dispatch("getDiary");
+        swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Diary uploaded!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } catch (err) {
-        console.log(err);
+        swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data,
+        });
       }
     },
     async fetchTag(context) {
@@ -196,6 +221,7 @@ export default new Vuex.Store({
     async updateDiary(context) {
       try {
         const diaryData = context.state.newDiary;
+        console.log(diaryData);
         const diaryId = context.state.diaryId;
         await axios({
           url: `http://localhost:3000/diaries/${diaryId}`,

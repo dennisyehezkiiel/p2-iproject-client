@@ -62,7 +62,6 @@ export default {
       this.changeUserData(this.user);
       await this.login();
       if (localStorage.getItem("access_token")) {
-        console.log("masuk");
         this.$router.push("/");
       }
     },
