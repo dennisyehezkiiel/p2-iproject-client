@@ -51,7 +51,7 @@
               class="px-3 py-2 flex items-center text-sm uppercase font-light leading-snug text-slate-500 hover:opacity-75"
               href=""
             >
-              <a href="" class="ml-2" @click="logoutHandler">Logout</a>
+              <a href="" class="ml-2" @click.prevent="logoutHandler">Logout</a>
             </a>
           </li>
           <li class="nav-item">
@@ -90,6 +90,8 @@
 
 <script>
 import { mapActions, mapMutations, mapState } from "vuex";
+import swal from "sweetalert2";
+
 export default {
   name: "Navbar",
   data() {
@@ -111,8 +113,21 @@ export default {
       this.$router.push("/findpage");
     },
     logoutHandler() {
-      localStorage.clear();
-      this.$router.push("/loginpage");
+      swal
+        .fire({
+          title: "Log out from myDiary?",
+          showDenyButton: true,
+          confirmButtonText: "Yes",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            localStorage.clear();
+            this.$router.push("/loginpage");
+            swal.fire("See you!", "", "success");
+          } else if (result.isDenied) {
+            swal.fire("Changes are not saved", "", "info");
+          }
+        });
     },
     homeHandler() {
       this.$router.push("/");

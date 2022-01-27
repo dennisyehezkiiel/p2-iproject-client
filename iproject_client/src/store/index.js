@@ -90,7 +90,7 @@ export default new Vuex.Store({
       try {
         const userData = context.state.userData;
         const login = await axios({
-          url: "http://localhost:3000/login",
+          url: "https://p2-iproject-dennis.herokuapp.com/login",
           method: "post",
           data: {
             email: userData.email,
@@ -119,7 +119,7 @@ export default new Vuex.Store({
       try {
         const userData = context.state.userData;
         const registerUser = await axios({
-          url: "http://localhost:3000/register",
+          url: "https://p2-iproject-dennis.herokuapp.com/register",
           method: "post",
           data: {
             name: userData.name,
@@ -148,9 +148,9 @@ export default new Vuex.Store({
     },
     async getDiary(context) {
       try {
-        let baseUrl = "http://localhost:3000/diaries";
+        let baseUrl = "https://p2-iproject-dennis.herokuapp.com/diaries";
         if (context.state.title) {
-          baseUrl = `http://localhost:3000/diaries?title=${context.state.title}`;
+          baseUrl = `https://p2-iproject-dennis.herokuapp.com/diaries?title=${context.state.title}`;
         }
         const diaryList = await axios.get(baseUrl, {
           headers: { access_token: localStorage.getItem("access_token") },
@@ -168,7 +168,7 @@ export default new Vuex.Store({
       try {
         const findUsername = context.state.username;
         const findUser = await axios.get(
-          `http://localhost:3000/findUser?username=${findUsername}`,
+          `https://p2-iproject-dennis.herokuapp.com/findUser?username=${findUsername}`,
           {
             headers: { access_token: localStorage.getItem("access_token") },
           }
@@ -183,7 +183,7 @@ export default new Vuex.Store({
       try {
         const diaryData = context.state.newDiary;
         await axios({
-          url: "http://localhost:3000/diaries",
+          url: "https://p2-iproject-dennis.herokuapp.com/diaries",
           method: "post",
           data: {
             title: diaryData.title,
@@ -213,9 +213,12 @@ export default new Vuex.Store({
     },
     async fetchTag(context) {
       try {
-        const fetchTag = await axios.get("http://localhost:3000/getTag", {
-          headers: { access_token: localStorage.getItem("access_token") },
-        });
+        const fetchTag = await axios.get(
+          "https://p2-iproject-dennis.herokuapp.com/getTag",
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
         context.commit("GET_TAG", fetchTag.data);
       } catch (err) {
         console.log(err);
@@ -225,7 +228,7 @@ export default new Vuex.Store({
       try {
         const diaryId = context.state.diaryId;
         const getMovieDetail = await axios.get(
-          `http://localhost:3000/diaries/${diaryId}`,
+          `https://p2-iproject-dennis.herokuapp.com/diaries/${diaryId}`,
           { headers: { access_token: localStorage.getItem("access_token") } }
         );
         context.commit("CHANGE_DIARY_LIST", getMovieDetail.data);
@@ -239,7 +242,7 @@ export default new Vuex.Store({
         console.log(diaryData);
         const diaryId = context.state.diaryId;
         await axios({
-          url: `http://localhost:3000/diaries/${diaryId}`,
+          url: `https://p2-iproject-dennis.herokuapp.com/diaries/${diaryId}`,
           method: "put",
           data: {
             title: diaryData.title,
@@ -250,15 +253,25 @@ export default new Vuex.Store({
           headers: { access_token: localStorage.getItem("access_token") },
         });
         context.dispatch("getDiary");
+        swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Update success!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } catch (err) {
         console.log(err);
       }
     },
     async getFriendList(context) {
       try {
-        const mutualList = await axios.get("http://localhost:3000/mutualList", {
-          headers: { access_token: localStorage.getItem("access_token") },
-        });
+        const mutualList = await axios.get(
+          "https://p2-iproject-dennis.herokuapp.com/mutualList",
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
         context.commit("GET_FRIENDLIST", mutualList.data);
       } catch (err) {
         console.log(err);
@@ -266,9 +279,12 @@ export default new Vuex.Store({
     },
     async getChat(context) {
       try {
-        const fetchChat = await axios.get("http://localhost:3000/getChats", {
-          headers: { access_token: localStorage.getItem("access_token") },
-        });
+        const fetchChat = await axios.get(
+          "https://p2-iproject-dennis.herokuapp.com/getChats",
+          {
+            headers: { access_token: localStorage.getItem("access_token") },
+          }
+        );
         context.commit("GET_CHATS", fetchChat.data);
       } catch (err) {
         console.log(err);
