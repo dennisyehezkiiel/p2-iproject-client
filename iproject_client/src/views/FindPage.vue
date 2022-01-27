@@ -17,13 +17,15 @@
         <h1 class="text-lg text-gray-700">{{ user.username }}</h1>
         <h3 class="text-sm text-gray-400">{{ user.name }}</h3>
         <h3 class="text-xs text-gray-400 font-light">{{ user.email }}</h3>
-        <button
-          @click="chatButtonHandler"
-          v-if="currentUserId != user.id"
-          class="text-sm bg-blue-300 px-8 py-2 mt-8 rounded-3xl text-gray-100 font-semibold uppercase tracking-wide"
-        >
-          Chat
-        </button>
+        <div>
+          <button
+            @click="chatButtonHandler"
+            v-if="currentUserId != user.id"
+            class="text-sm bg-blue-300 px-8 py-2 mt-8 rounded-3xl text-gray-100 font-semibold uppercase tracking-wide"
+          >
+            Chat
+          </button>
+        </div>
       </div>
     </div>
   </div>

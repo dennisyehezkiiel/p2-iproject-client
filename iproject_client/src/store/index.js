@@ -100,6 +100,13 @@ export default new Vuex.Store({
         localStorage.setItem("access_token", login.data.access_token);
         localStorage.setItem("userId", login.data.userId);
         localStorage.setItem("userName", login.data.userName);
+        swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Login success!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } catch (err) {
         swal.fire({
           icon: "error",
@@ -124,6 +131,13 @@ export default new Vuex.Store({
         });
         console.log(registerUser);
         context.commit("CHANGE_REGISTRATION_STATUS", true);
+        swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Registration success!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } catch (err) {
         swal.fire({
           icon: "error",
@@ -159,6 +173,7 @@ export default new Vuex.Store({
             headers: { access_token: localStorage.getItem("access_token") },
           }
         );
+        console.log(findUser.data);
         context.commit("CHANGE_USERLIST", findUser.data);
       } catch (err) {
         console.log(err);
